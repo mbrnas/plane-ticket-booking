@@ -4,6 +4,8 @@ import org.company.planeticketbooking.domain.flight.Flight;
 import org.company.planeticketbooking.service.FlightService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/flight")
 public class FlightController {
@@ -14,8 +16,8 @@ public class FlightController {
     }
 
     @GetMapping("/all")
-    public void getFlights() {
-        flightService.getFlights();
+    public List<Flight> getFlights() {
+        return flightService.getFlights();
     }
 
     @GetMapping("/{id}")
@@ -34,11 +36,7 @@ public class FlightController {
     }
 
     @PutMapping("/update/{airlineId}")
-    public void updateFlight(Flight flight, @PathVariable Long airlineId) {
+    public void updateFlight(@RequestBody Flight flight, @PathVariable Long airlineId) {
         flightService.updateFlight(flight, airlineId);
     }
-
-
-
-
 }
