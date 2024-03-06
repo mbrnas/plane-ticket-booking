@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: ${SERVER_PORT}
+
+bezkoder:
+  app:
+    jwtSecret: ${JWT_SECRET_KEY}
+    jwtExpirationMs: ${JWT_EXPIRATION_MS}
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure.jdbc.DataSourceInitializer: debug
