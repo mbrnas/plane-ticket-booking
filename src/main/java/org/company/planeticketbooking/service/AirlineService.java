@@ -4,6 +4,8 @@ import org.company.planeticketbooking.domain.airline.Airline;
 import org.company.planeticketbooking.repository.AirlineRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AirlineService {
     private final AirlineRepository airlineRepository;
@@ -16,8 +18,8 @@ public class AirlineService {
         airlineRepository.findAll();
     }
 
-    public void getAirlineById(Long id) {
-        airlineRepository.findById(id);
+    public Optional<Airline> getAirlineById(Long id) {
+        return airlineRepository.findById(id);
     }
 
     public void deleteAirlineById(Long id) {

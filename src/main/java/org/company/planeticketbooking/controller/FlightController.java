@@ -28,14 +28,14 @@ public class FlightController {
         flightService.deleteFlightById(id);
     }
 
-    @PostMapping("/add")
-    public void saveFlight(Flight flight) {
-        flightService.saveFlight(flight);
+    @PostMapping("/add/{airlineId}")
+    public void saveFlight(@RequestBody Flight flight, @PathVariable Long airlineId) {
+        flightService.saveFlight(flight, airlineId);
     }
 
-    @PutMapping("/update")
-    public void updateFlight(Flight flight) {
-        flightService.updateFlight(flight);
+    @PutMapping("/update/{airlineId}")
+    public void updateFlight(Flight flight, @PathVariable Long airlineId) {
+        flightService.updateFlight(flight, airlineId);
     }
 
 

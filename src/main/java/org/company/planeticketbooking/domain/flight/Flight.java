@@ -35,6 +35,7 @@ public class Flight {
     @Column(name = "arrival_time")
     private LocalDateTime arrivalTime;
 
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     @Column(name = "seats_total")
