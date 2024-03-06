@@ -1,4 +1,4 @@
-package org.company.planeticketbooking.domain;
+package org.company.planeticketbooking.domain.user;
 
 import java.util.HashSet;
 import java.util.Set;

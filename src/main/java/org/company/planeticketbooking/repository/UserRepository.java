@@ -1,6 +1,6 @@
 package org.company.planeticketbooking.repository;
 
-import org.company.planeticketbooking.domain.User;
+import org.company.planeticketbooking.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

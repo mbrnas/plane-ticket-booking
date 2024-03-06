@@ -1,7 +1,7 @@
 package org.company.planeticketbooking.security.services;
 
 
-import org.company.planeticketbooking.domain.User;
+import org.company.planeticketbooking.domain.user.User;
 import org.company.planeticketbooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
-import org.company.planeticketbooking.domain.ERole;
-import org.company.planeticketbooking.domain.Role;
-import org.company.planeticketbooking.domain.User;
+import org.company.planeticketbooking.domain.user.ERole;
+import org.company.planeticketbooking.domain.user.Role;
+import org.company.planeticketbooking.domain.user.User;
 import org.company.planeticketbooking.payload.request.LoginRequest;
 import org.company.planeticketbooking.payload.request.SignupRequest;
 import org.company.planeticketbooking.payload.response.JwtResponse;
@@ -18,7 +18,6 @@ import org.company.planeticketbooking.repository.RoleRepository;
 import org.company.planeticketbooking.repository.UserRepository;
 import org.company.planeticketbooking.security.jwt.JwtUtils;
 import org.company.planeticketbooking.security.services.UserDetailsImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

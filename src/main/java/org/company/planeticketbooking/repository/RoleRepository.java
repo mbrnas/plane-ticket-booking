@@ -1,7 +1,7 @@
 package org.company.planeticketbooking.repository;
 
-import org.company.planeticketbooking.domain.ERole;
-import org.company.planeticketbooking.domain.Role;
+import org.company.planeticketbooking.domain.user.ERole;
+import org.company.planeticketbooking.domain.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

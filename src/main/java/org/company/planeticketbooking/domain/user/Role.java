@@ -1,4 +1,4 @@
-package org.company.planeticketbooking.domain;
+package org.company.planeticketbooking.domain.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
