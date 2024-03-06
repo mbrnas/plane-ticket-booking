@@ -25,8 +25,10 @@ public class Payment {
     private LocalDateTime paymentDate;
 
     @Column(nullable = false)
-    private String paymentMethod;
+    @Enumerated(EnumType.STRING)
+    private EPaymentMethod paymentMethod;
 
     @Column(nullable = false)
-    private String paymentStatus;
+    @Enumerated(EnumType.STRING)
+    private EPaymentStatus paymentStatus;
 }
