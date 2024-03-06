@@ -1,52 +1,125 @@
-CREATE TABLE Users (
-                       user_id SERIAL PRIMARY KEY,
-                       username VARCHAR(255) UNIQUE NOT NULL,
-                       password VARCHAR(255) NOT NULL,
-                       email VARCHAR(255) UNIQUE NOT NULL,
-                       full_name VARCHAR(255) NOT NULL,
-                       role VARCHAR(50) NOT NULL
-);
+create table if not exists roles
+(
+    id   serial
+    primary key,
+    name varchar(20)
+    constraint roles_name_check
+    check ((name)::text = ANY
+((ARRAY ['ROLE_USER'::character varying, 'ROLE_MODERATOR'::character varying, 'ROLE_ADMIN'::character varying])::text[]))
+    );
 
-CREATE TABLE Flights (
-                         flight_id SERIAL PRIMARY KEY,
-                         flight_number VARCHAR(255) NOT NULL,
-                         airline VARCHAR(255) NOT NULL,
-                         origin VARCHAR(255) NOT NULL,
-                         destination VARCHAR(255) NOT NULL,
-                         departure_time TIMESTAMP NOT NULL,
-                         arrival_time TIMESTAMP NOT NULL,
-                         price DECIMAL NOT NULL,
-                         seats_total INT NOT NULL,
-                         seats_available INT NOT NULL
-);
+alter table roles
+    owner to postgres;
 
-CREATE TABLE Bookings (
-                          booking_id SERIAL PRIMARY KEY,
-                          user_id INT NOT NULL,
-                          flight_id INT NOT NULL,
-                          booking_time TIMESTAMP NOT NULL,
-                          status VARCHAR(50) NOT NULL,
-                          payment_status VARCHAR(50) NOT NULL,
-                          FOREIGN KEY (user_id) REFERENCES Users(user_id),
-                          FOREIGN KEY (flight_id) REFERENCES Flights(flight_id)
-);
+create table if not exists users
+(
+    id       bigserial
+    primary key,
+    email    varchar(50)
+    constraint uk6dotkott2kjsp8vw4d0m25fb7
+    unique,
+    password varchar(120),
+    username varchar(20)
+    constraint ukr43af9ap4edm43mmtq01oddj6
+    unique
+    );
 
-CREATE TABLE Passengers (
-                            passenger_id SERIAL PRIMARY KEY,
-                            booking_id INT NOT NULL,
-                            first_name VARCHAR(255) NOT NULL,
-                            last_name VARCHAR(255) NOT NULL,
-                            passport_number VARCHAR(255),
-                            special_requests TEXT,
-                            FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id)
-);
+alter table users
+    owner to postgres;
 
-CREATE TABLE Payments (
-                          payment_id SERIAL PRIMARY KEY,
-                          booking_id INT UNIQUE NOT NULL,
-                          amount DECIMAL NOT NULL,
-                          payment_date TIMESTAMP NOT NULL,
-                          payment_method VARCHAR(255) NOT NULL,
-                          payment_status VARCHAR(50) NOT NULL,
-                          FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id)
-);
+create table if not exists user_roles
+(
+    user_id bigint  not null
+    constraint fkhfh9dx7w3ubf1co1vdev94g3f
+    references users,
+    role_id integer not null
+    constraint fkh8ciramu9cc9q3qcqiv4ue8a6
+    references roles,
+    primary key (user_id, role_id)
+    );
+
+alter table user_roles
+    owner to postgres;
+
+create table if not exists airlines
+(
+    airline_id   bigserial
+    primary key,
+    airline_name varchar(255)
+    );
+
+alter table airlines
+    owner to postgres;
+
+create table if not exists flights
+(
+    flight_id       bigserial
+    primary key,
+    arrival_time    timestamp(6),
+    departure_time  timestamp(6),
+    destination     varchar(255),
+    flight_number   varchar(255),
+    origin          varchar(255),
+    price           numeric(38, 2) not null,
+    seats_available integer,
+    seats_total     integer,
+    airline_id      bigint         not null
+    constraint fkieor4j3ivp3xu584qenhfh0gd
+    references airlines
+    );
+
+alter table flights
+    owner to postgres;
+
+create table if not exists payments
+(
+    payment_id     bigserial
+    primary key,
+    amount         numeric(38, 2) not null,
+    payment_date   timestamp(6)   not null,
+    payment_method varchar(255)   not null,
+    payment_status varchar(255)   not null
+    );
+
+alter table payments
+    owner to postgres;
+
+create table if not exists bookings
+(
+    booking_id     bigserial
+    primary key,
+    booking_time   timestamp(6),
+    payment_status varchar(255),
+    status         varchar(255),
+    flight_id      bigint not null
+    constraint fkidcytqkgq0ve4x1elcnbmdy8a
+    references flights,
+    user_id        bigint not null
+    constraint fkeyog2oic85xg7hsu2je2lx3s6
+    references users,
+    payment_id     bigint
+    constraint uk_cj0yayocyxid3853am17l2p1g
+    unique
+    constraint fkjki6p9c5yckce7owst8vxu17u
+    references payments
+    );
+
+alter table bookings
+    owner to postgres;
+
+create table if not exists passengers
+(
+    passenger_id     bigserial
+    primary key,
+    first_name       varchar(255),
+    last_name        varchar(255),
+    passport_number  varchar(255),
+    special_requests varchar(255),
+    booking_id       bigint not null
+    constraint fkgc7vcfrut3vamougerwse2m2u
+    references bookings
+    );
+
+alter table passengers
+    owner to postgres;
+

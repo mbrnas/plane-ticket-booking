@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.company.planeticketbooking.domain.flight.Flight;
+import org.company.planeticketbooking.domain.payment.Payment;
 import org.company.planeticketbooking.domain.user.User;
 
 import java.time.LocalDateTime;
@@ -34,4 +35,8 @@ public class Booking {
 
     @Column(name = "payment_status")
     private String paymentStatus;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
+    private Payment payment;
 }
