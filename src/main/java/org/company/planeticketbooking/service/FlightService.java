@@ -2,11 +2,14 @@ package org.company.planeticketbooking.service;
 
 import org.company.planeticketbooking.domain.airline.Airline;
 import org.company.planeticketbooking.domain.flight.Flight;
+import org.company.planeticketbooking.payload.response.FlightResponse;
 import org.company.planeticketbooking.repository.FlightRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -18,10 +21,18 @@ public class FlightService {
         this.airlineService = airlineService;
     }
 
-    public List<Flight> getFlights() {
-        return flightRepository.findAll();
+    public List<FlightResponse> getFlights() {
+        List<Flight> flights = flightRepository.findAll();
+        return flights.stream()
+                .map(flight -> {
+                    FlightResponse flightResponse = new FlightResponse();
+                    BeanUtils.copyProperties(flight, flightResponse);
+                    flightResponse.setAirlineId(flight.getAirline().getAirlineId());
+                    flightResponse.setAirlineName(flight.getAirline().getAirlineName());
+                    return flightResponse;
+                })
+                .collect(Collectors.toList());
     }
-
     public Optional<Flight> getFlightById(Long id) {
         return flightRepository.findById(id);
     }

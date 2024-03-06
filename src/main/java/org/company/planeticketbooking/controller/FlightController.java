@@ -1,6 +1,7 @@
 package org.company.planeticketbooking.controller;
 
 import org.company.planeticketbooking.domain.flight.Flight;
+import org.company.planeticketbooking.payload.response.FlightResponse;
 import org.company.planeticketbooking.service.FlightService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class FlightController {
     }
 
     @GetMapping("/all")
-    public List<Flight> getFlights() {
+    public List<FlightResponse> getFlights() {
         return flightService.getFlights();
     }
 

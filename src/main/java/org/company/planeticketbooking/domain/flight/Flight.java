@@ -1,6 +1,5 @@
 package org.company.planeticketbooking.domain.flight;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
