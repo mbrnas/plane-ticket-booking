@@ -31,10 +31,8 @@ public class Booking {
     @Column(name = "booking_time")
     private LocalDateTime bookingTime;
 
-    private String status;
-
-    @Column(name = "payment_status")
-    private String paymentStatus;
+    @Enumerated(EnumType.STRING)
+    private String bookingStatus;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")
