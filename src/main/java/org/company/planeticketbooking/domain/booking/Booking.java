@@ -32,7 +32,7 @@ public class Booking {
     private LocalDateTime bookingTime;
 
     @Enumerated(EnumType.STRING)
-    private String bookingStatus;
+    private EBookingStatus bookingStatus;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId")

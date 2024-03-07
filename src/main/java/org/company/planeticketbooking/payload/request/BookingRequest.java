@@ -10,6 +10,5 @@ public class BookingRequest {
     private Long flightId;
     private LocalDateTime bookingTime;
     private String bookingStatus;
-    private String paymentStatus;
     private Long paymentId;
 }
