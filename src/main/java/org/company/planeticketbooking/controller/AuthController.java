@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.company.planeticketbooking.domain.user.ERole;
@@ -127,4 +129,11 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(HttpServletRequest request, HttpServletResponse response) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return ResponseEntity.ok(new MessageResponse("User logged out successfully!"));
+    }
+
 }
