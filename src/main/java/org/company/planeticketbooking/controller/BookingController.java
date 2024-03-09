@@ -29,7 +29,7 @@ public class BookingController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteBookingById(@PathVariable Long id) {
-        bookingService.deleteBookingById(id);
+        bookingService.deleteBooking(id);
     }
 
     @PostMapping("/add")
