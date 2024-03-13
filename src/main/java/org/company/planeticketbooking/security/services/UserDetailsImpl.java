@@ -93,6 +93,12 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    public Collection<String> getRolesAsString() {
+        return authorities.stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
